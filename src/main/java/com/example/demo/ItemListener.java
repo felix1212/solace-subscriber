@@ -59,10 +59,13 @@ public class ItemListener {
             .setSpanKind(SpanKind.CONSUMER)
             .setAttribute("messaging.system", "solace")
             .setAttribute("messaging.destination.name", dest)
+            .setAttribute("current.method","ItemListener")
+            .setAttribute("current.instrumentation","otel.only")
             .startSpan();
   
         try (Scope s = span.makeCurrent()) {
-          System.out.println("[Subscriber] " + dest + " => " + json);
+          System.out.println("Subscriber: " + dest);
+          System.out.println("Result: " + json);
           // ... your processing
         } catch (Exception e) {
           span.recordException(e);
